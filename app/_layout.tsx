@@ -21,7 +21,7 @@ export default function RootLayout() {
   const [id, setId] = useState('')
   const [pw, setPw] = useState('')
 
-  const [auth, setAuth] = useState(false)
+  const [auth, setAuth] = useState(true)
 
   const authentication = () => {
     if (id === 'admin' && pw === 'admin') {
