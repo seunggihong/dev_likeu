@@ -2,12 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native'
 import React, { useRef, useState } from 'react'
 import { FontAwesome } from '@expo/vector-icons'
 
-import {
-  CameraView,
-  CameraType,
-  useCameraPermissions,
-  CameraMode,
-} from 'expo-camera'
+import { CameraView, CameraType, useCameraPermissions } from 'expo-camera'
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<CameraType>('back')
@@ -16,8 +11,12 @@ export default function CameraScreen() {
 
   const [recode, setRecode] = useState(false)
 
+  const [viewChanger, setViewChanger] = useState(true)
+
+  const [videoUri, setVideoUri] = useState(null)
+
   if (!permission) {
-    return <View></View>
+    return <View />
   }
 
   const toggleCameraFacing = () => {
@@ -27,10 +26,24 @@ export default function CameraScreen() {
   if (!permission.granted) {
     return (
       <View style={styles.container}>
-        <Text style={styles.message}>
-          We need your permission to show the camera
-        </Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <View
+          style={{
+            backgroundColor: 'white',
+            width: 350,
+            height: 200,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 30,
+            borderWidth: 5,
+            borderColor: '#F88600',
+          }}
+        >
+          <Text style={styles.message}>
+            We need your permission to show the camera.
+          </Text>
+          <Button onPress={requestPermission} title="Grant permission" />
+        </View>
       </View>
     )
   }
@@ -39,96 +52,53 @@ export default function CameraScreen() {
     if (cameraRef) {
       if (!recode) {
         setRecode(true)
-        console.log(recode)
         try {
           const data = await cameraRef.current.recordAsync()
-          console.log(data)
+          console.log(videoUri)
         } catch (e) {
           console.log(e)
         }
       } else {
         setRecode(false)
-        console.log(recode)
         try {
           const data = await cameraRef.current.stopRecording()
-          console.log(data)
+          setVideoUri(data.uri)
+          console.log(videoUri)
         } catch (e) {
           console.log(e)
         }
       }
     }
-    // if (cameraRef) {
-    //   try {
-    //     const data = await cameraRef.current.recordAsync()
-    //     console.log(data)
-    //   } catch (e) {
-    //     console.log(e)
-    //   }
-    // }
   }
 
   const openCamera = () => {
     return (
       <CameraView
-        style={styles.camera}
+        style={styles.camera_view}
         facing={facing}
         mode="video"
         ref={cameraRef}
       >
-        <View
-          style={{
-            display: 'flex',
-            width: '100%',
-            height: '100%',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            padding: 30,
-          }}
-        >
-          <View
-            style={{
-              width: '100%',
-              display: 'flex',
-              alignItems: 'flex-end',
-              justifyContent: 'flex-end',
-              marginTop: 80,
-            }}
-          >
+        <View style={styles.camera_container}>
+          <View style={styles.camera_top_container}>
             <TouchableOpacity
-              style={{
-                width: 45,
-                height: 45,
-                borderWidth: 3,
-                borderColor: 'white',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 30,
+              style={[styles.face_change_btn, { borderWidth: 0 }]}
+              onPress={() => {
+                setViewChanger(true)
               }}
+            >
+              <FontAwesome name="close" size={30} color={'white'} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.face_change_btn}
               onPress={toggleCameraFacing}
             >
               <FontAwesome name="undo" size={30} color={'white'} />
             </TouchableOpacity>
           </View>
-          <View
-            style={{
-              width: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
+          <View style={styles.camera_bottom_container}>
             <TouchableOpacity
-              style={{
-                width: 60,
-                height: 60,
-                borderWidth: 3,
-                borderColor: 'white',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                borderRadius: 30,
-              }}
+              style={styles.recode_btn}
               onPress={toggleCameraRecode}
             >
               <FontAwesome name="circle" size={45} color={'red'} />
@@ -139,30 +109,36 @@ export default function CameraScreen() {
     )
   }
 
+  const selectView = () => {
+    return (
+      <>
+        <Text style={{ color: 'white' }}>CameraScreen</Text>
+        <View style={styles.preview}>
+          <Text>Preview Vedio</Text>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => {
+              setViewChanger(false)
+            }}
+          >
+            <FontAwesome name="video-camera" size={30} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn}>
+            <FontAwesome name="photo" size={30} />
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={[styles.btn, { width: 220 }]}>
+          <FontAwesome name="upload" size={30} />
+        </TouchableOpacity>
+      </>
+    )
+  }
+
   return (
     <View style={styles.container}>
-      {/* <Text style={{ color: 'white' }}>CameraScreen</Text>
-      <View style={styles.preview}>
-        <Text>Preview Vedio</Text>
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => {
-            openCamera()
-            console.log('done')
-          }}
-        >
-          <FontAwesome name="video-camera" size={30} />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.btn}>
-          <FontAwesome name="photo" size={30} />
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity style={[styles.btn, { width: 220 }]}>
-        <FontAwesome name="upload" size={30} />
-      </TouchableOpacity> */}
-      {openCamera()}
+      {viewChanger ? selectView() : openCamera()}
     </View>
   )
 }
@@ -202,8 +178,52 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 10,
   },
-  camera: {
+
+  camera_view: {
     width: '100%',
     height: '100%',
+  },
+  camera_container: {
+    display: 'flex',
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 30,
+  },
+
+  camera_top_container: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    marginTop: 80,
+  },
+  camera_bottom_container: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  face_change_btn: {
+    width: 45,
+    height: 45,
+    borderWidth: 3,
+    borderColor: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+  },
+  recode_btn: {
+    width: 60,
+    height: 60,
+    borderWidth: 3,
+    borderColor: 'white',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
   },
 })
