@@ -9,11 +9,17 @@ export default function CameraScreen() {
   const [permission, requestPermission] = useCameraPermissions()
   const cameraRef = useRef(null)
 
-  const [recode, setRecode] = useState(false)
+  const [recordTime, setRecordTime] = useState(0)
+  const [record, setRecord] = useState(false)
 
   const [viewChanger, setViewChanger] = useState(true)
 
   const [videoUri, setVideoUri] = useState(null)
+
+  // setInterval(() => {
+  //   setRecordTime(prev => prev + 1)
+  //   console.log(recordTime)
+  // },1000)
 
   if (!permission) {
     return <View />
@@ -50,20 +56,20 @@ export default function CameraScreen() {
 
   const toggleCameraRecode = async () => {
     if (cameraRef) {
-      if (!recode) {
-        setRecode(true)
+      if (!record) {
+        setRecord(true)
         try {
           const data = await cameraRef.current.recordAsync()
+          setVideoUri(data.uri)
           console.log(videoUri)
         } catch (e) {
           console.log(e)
         }
       } else {
-        setRecode(false)
+        setRecord(false)
         try {
           const data = await cameraRef.current.stopRecording()
-          setVideoUri(data.uri)
-          console.log(videoUri)
+          setViewChanger(true)
         } catch (e) {
           console.log(e)
         }
@@ -89,6 +95,20 @@ export default function CameraScreen() {
             >
               <FontAwesome name="close" size={30} color={'white'} />
             </TouchableOpacity>
+            <View
+              style={{
+                borderWidth: 3,
+                borderColor: 'white',
+                borderRadius: 10,
+                width: 100,
+
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Text style={{ color: 'white', fontSize: 30 }}>{recordTime}</Text>
+            </View>
             <TouchableOpacity
               style={styles.face_change_btn}
               onPress={toggleCameraFacing}
@@ -101,7 +121,11 @@ export default function CameraScreen() {
               style={styles.recode_btn}
               onPress={toggleCameraRecode}
             >
-              <FontAwesome name="circle" size={45} color={'red'} />
+              {record ? (
+                <FontAwesome name="stop" size={35} color={'red'} />
+              ) : (
+                <FontAwesome name="circle" size={45} color={'red'} />
+              )}
             </TouchableOpacity>
           </View>
         </View>
