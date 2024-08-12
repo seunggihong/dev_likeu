@@ -12,7 +12,7 @@ export default function HomeScreen() {
         height: '100%',
       }}
     >
-      <Text style={{ color: 'white' }}>HomeScreen : Dev Camera Branch</Text>
+      <Text style={{ color: 'white' }}>HomeScreen : Main Branch</Text>
     </View>
   )
 }
