@@ -1,0 +1,6 @@
+module Pods_likeu {
+  umbrella header "Pods-likeu-umbrella.h"
+
+  export *
+  module * { export * }
+}
