@@ -1,6 +1,8 @@
-import { View, Text, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
+
 import CreateAdViewer from '@/components/CreateAdViewer'
+import CreateChartViewer from '@/components/CreateChartViewer'
 
 export default function HomeScreen() {
   return (
@@ -13,47 +15,15 @@ export default function HomeScreen() {
         }}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={{ color: 'white' }}>HomeScreen : Dev Main Branch</Text>
-        <View
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-            width: '100%',
-            height: 120,
-            marginTop: 20,
-            marginBottom: 20,
-          }}
-        >
+        <View style={styles.ad_container}>
+          <Text style={styles.center_text}>News</Text>
           <CreateAdViewer />
         </View>
-        <View
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-            width: '100%',
-            height: 300,
-            marginTop: 20,
-            marginBottom: 20,
-          }}
-        >
-          <Text>Chart</Text>
+        <View style={styles.chart_container}>
+          <Text style={styles.center_text}>Chart</Text>
+          <CreateChartViewer />
         </View>
-        <View
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'white',
-            width: '100%',
-            height: 300,
-            marginTop: 20,
-            marginBottom: 100,
-          }}
-        >
+        <View style={styles.popular_container}>
           <Text>Popular Player</Text>
         </View>
       </ScrollView>
@@ -72,4 +42,37 @@ const styles = StyleSheet.create({
   },
 
   text: { textAlign: 'center' },
+
+  center_text: { color: 'white', fontSize: 30, fontWeight: 700, margin: 10 },
+
+  ad_container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: 200,
+    marginTop: 20,
+    marginBottom: 20,
+  },
+
+  chart_container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    height: 300,
+    marginTop: 20,
+    marginBottom: 20,
+  },
+
+  popular_container: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    width: '100%',
+    height: 300,
+    marginTop: 20,
+    marginBottom: 100,
+  },
 })
