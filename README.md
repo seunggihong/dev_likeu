@@ -1,50 +1,42 @@
-# Welcome to your Expo app 👋
+![Static Badge](https://img.shields.io/badge/expo-50.0.17-%23000020?style=flat-square&logo=expo&labelColor=%23000020&color=white)
+![Static Badge](https://img.shields.io/badge/node-20.11.1-%235FA04E?style=flat-square&logo=nodedotjs&logoColor=white&labelColor=%235FA04E&color=white)
+![Static Badge](https://img.shields.io/badge/TypeScript-%233178C6?style=flat-square&logo=typescript&logoColor=white&labelColor=%233178C6&color=%233178C6)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<p align="center">
+<img width="200" alt="structure" src="https://github.com/user-attachments/assets/351bd487-6f22-4728-acd5-021f1517a94a">
+</p>
 
-## Get started
+# Capstone Design
 
-1. Install dependencies
+This repository is intended to record capstone design projects conducted at universities.
 
-   ```bash
-   npm install
-   ```
+# Index
 
-2. Start the app
+1. [Project Intro](#project_intro)
+2. [Team Intro](#team_intro)
+3. [App Structure](#app_structure)
 
-   ```bash
-    npx expo start
-   ```
+<a name='project_intro'></a>
 
-In the output, you'll find options to open the app in a
+# 1. Projcet Intro
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+This project is a service application that tells you how similar you have to the athlete you want and what you need to fix to be like this athlete.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+<a name='team_intro'></a>
 
-## Get a fresh project
+# 2. Team Intro
 
-When you're ready, run:
+Team Name : [**_Squid Peanut_**](https://github.com/Squid-Peanut)
 
-```bash
-npm run reset-project
-```
+| Name             |                          Work                           |                                                                      Github                                                                      |
+| :--------------- | :-----------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Ensoo Kim**    | **_Data Preprocessing_**, Training Data, Build DL-model |  <a href="https://github.com/ensookim"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>   |
+| **Seunggi Hong** |  **_Build DL-model_**, Data Preprocessing, ,Build App   | <a href="https://github.com/seunggihong"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/> |
+| **Junyoung Heo** |         **_Build Server_**, Data Preprocessing          |  <a href="https://github.com/snilsnil"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>   |
+| **Kijong Kim**   |                    **_App Design_**                     |  <a href="https://github.com/rrangeess"><img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/></a><br/>  |
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+<a name='app_structure'></a>
 
-## Learn more
+# 3. App Structure
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<img width="743" alt="structure" src="https://github.com/user-attachments/assets/9abb29d2-d26c-4936-9a04-92e91f4ff1d3">
