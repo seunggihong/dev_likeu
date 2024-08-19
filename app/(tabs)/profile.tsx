@@ -10,9 +10,22 @@ import React, { useEffect, useState } from 'react'
 
 import USERDATA from '@/data/user.json'
 
+import CreateOption from '@/components/CreateOption'
+import CreateHeatmapViewer from '@/components/CreateHeatmapViewer'
+
 export default function ProfileScreen() {
   const [userName, setUserName] = useState<String>()
   const [userImage, setUserImage] = useState<String>()
+
+  // test
+  const optionName = [
+    { name: 'a', key: 1 },
+    { name: 'b', key: 2 },
+    { name: 'c', key: 3 },
+    { name: 'd', key: 4 },
+    { name: 'e', key: 5 },
+    { name: 'f', key: 6 },
+  ]
 
   // Need API Communication function
   const loadUserData = () => {
@@ -57,39 +70,17 @@ export default function ProfileScreen() {
           </Text>
         </View>
         <View style={styles.hitmap_view}>
-          <Text>hitmap</Text>
+          <CreateHeatmapViewer />
         </View>
         <View style={styles.option_view}>
-          <TouchableOpacity style={styles.option_btn}>
-            <View>
-              <Text>Option1</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.option_btn}>
-            <View>
-              <Text>Option2</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.option_btn}>
-            <View>
-              <Text>Option3</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.option_btn}>
-            <View>
-              <Text>Option4</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.option_btn}>
-            <View>
-              <Text>Option5</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.option_btn}>
-            <View>
-              <Text>Option6</Text>
-            </View>
-          </TouchableOpacity>
+          {/* need key value
+          Warning: CreateOption: `key` is not a prop. 
+          Trying to access it will result in `undefined` being returned. 
+          If you need to access the same value within the child component, you should pass it as a different prop. 
+          (https://reactjs.org/link/special-props) */}
+          {optionName.map(config => {
+            return <CreateOption name={config.name} key={config.key} />
+          })}
         </View>
       </ScrollView>
     </View>
@@ -132,7 +123,6 @@ const styles = StyleSheet.create({
 
     width: '100%',
     height: 220,
-    backgroundColor: 'white',
   },
 
   option_view: {
@@ -143,21 +133,5 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  option_btn: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    width: '100%',
-    height: 50,
-    backgroundColor: 'white',
-    marginBottom: 10,
-
-    borderTopWidth: 2,
-    borderTopColor: 'gray',
-    borderBottomWidth: 2,
-    borderBottomColor: 'gray',
   },
 })
