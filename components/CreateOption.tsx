@@ -15,7 +15,7 @@ export default function CreateOption({ name, key }: Props) {
         console.log(name)
       }}
     >
-      <View key={key}>
+      <View>
         <Text style={{ color: 'white' }}>Option {name}</Text>
       </View>
     </TouchableOpacity>

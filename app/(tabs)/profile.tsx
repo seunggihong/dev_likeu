@@ -122,7 +122,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     width: '100%',
-    height: 220,
   },
 
   option_view: {
