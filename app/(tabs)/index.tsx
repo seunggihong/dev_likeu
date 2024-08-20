@@ -1,8 +1,8 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 
-import CreateChartViewer from '@/constants/CreateChartViewer'
-import CreateAdViewer from '@/constants/CreateAdViewer'
+import CreateChartViewer from '@/components/CreateChartViewer'
+import CreateAdViewer from '@/components/CreateAdViewer'
 
 export default function HomeScreen() {
   return (

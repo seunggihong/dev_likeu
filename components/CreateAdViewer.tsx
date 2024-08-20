@@ -13,8 +13,6 @@ export default function CreateAdViewer() {
     for (let i = 0; i < JSONDATA.length; i++) {
       setAd(prev => [...prev, [JSONDATA[i]['title'], JSONDATA[i]['color']]])
     }
-
-    console.log(ad)
   }, [])
 
   return (
