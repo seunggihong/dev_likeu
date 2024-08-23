@@ -1,7 +1,7 @@
 import { Stack } from 'expo-router'
 import { DarkTheme, ThemeProvider } from '@react-navigation/native'
 import { useColorScheme } from '@/hooks/useColorScheme'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import {
   View,
@@ -14,6 +14,7 @@ import {
   Keyboard,
 } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
+import axios from 'axios'
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
@@ -21,14 +22,28 @@ export default function RootLayout() {
   const [id, setId] = useState('')
   const [pw, setPw] = useState('')
 
-  const [auth, setAuth] = useState(true)
+  const [auth, setAuth] = useState(false)
 
-  const authentication = () => {
-    if (id === 'admin' && pw === 'admin') {
-      setAuth(true)
-      console.log('Wellcome Admin')
-    } else {
-      alert('ERROR')
+  const authentication = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/user')
+      let i = 0
+      for (i; i < response.data.user.length; i++) {
+        if (
+          id === response.data.user[i].userID &&
+          pw === response.data.user[i].password
+        ) {
+          setAuth(true)
+          console.log(`Wellcome ${response.data.user[i].name}`)
+          alert(`Wellcome ${response.data.user[i].name}`)
+          break
+        }
+      }
+      if (i === response.data.user.length) {
+        alert(`retry plz`)
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
@@ -98,7 +113,6 @@ export default function RootLayout() {
             <TouchableOpacity
               style={styles.login_btn}
               onPress={() => {
-                console.log(id, pw)
                 Keyboard.dismiss()
                 authentication()
               }}
@@ -111,7 +125,6 @@ export default function RootLayout() {
                 { backgroundColor: 'white', flexDirection: 'row' },
               ]}
               onPress={() => {
-                console.log(id, pw)
                 Keyboard.dismiss()
               }}
             >
