@@ -1,8 +1,14 @@
-import React from 'react'
-import { Tabs } from 'expo-router'
+import React, { useEffect } from 'react'
+import { Tabs, useLocalSearchParams } from 'expo-router'
 import { TabBarIcon } from '@/components/navigation/TabBarIcon'
 
 export default function _layout() {
+  const { id } = useLocalSearchParams()
+
+  useEffect(() => {
+    console.log(id)
+  }, [])
+
   return (
     <Tabs
       screenOptions={{

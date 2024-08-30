@@ -22,11 +22,13 @@ export default function RootLayout() {
   const [id, setId] = useState('')
   const [pw, setPw] = useState('')
 
+  // 인증 확인
   const [auth, setAuth] = useState(false)
 
+  // Flask 로 만든 로컬 서버에 접속해서 User 확인하고 로그인 가능하게 하는 Function
   const authentication = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/user')
+      const response = await axios.get('http://127.0.0.1:8000/users')
       let i = 0
       for (i; i < response.data.user.length; i++) {
         if (
@@ -34,7 +36,6 @@ export default function RootLayout() {
           pw === response.data.user[i].password
         ) {
           setAuth(true)
-          console.log(`Wellcome ${response.data.user[i].name}`)
           alert(`Wellcome ${response.data.user[i].name}`)
           break
         }
@@ -51,7 +52,11 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DarkTheme}>
       {auth ? (
         <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(tabs)"
+            options={{ headerShown: false }}
+            getId={({ params }) => params?.id}
+          />
         </Stack>
       ) : (
         <KeyboardAvoidingView behavior={Platform.select({ ios: 'padding' })}>

@@ -4,14 +4,31 @@ import React, { useEffect, useState } from 'react'
 import { SwiperFlatList } from 'react-native-swiper-flatlist'
 const { width } = Dimensions.get('window')
 
-import JSONDATA from '@/data/ad.json'
+import axios from 'axios'
 
 export default function CreateAdViewer() {
   const [ad, setAd] = useState<any[]>([])
+  const [load, setLoad] = useState(false)
+
+  // Flask 로 만든 로컬 서버에 접속해서 Ads 확인하고 카드를 만들기 위한 데이터 추출.
+  const load_ads = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/ads')
+      for (let i = 0; i < response.data.length; i++) {
+        setAd(prev => [
+          ...prev,
+          [response.data[i].title, response.data[i].color],
+        ])
+      }
+      setLoad(true)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   useEffect(() => {
-    for (let i = 0; i < JSONDATA.length; i++) {
-      setAd(prev => [...prev, [JSONDATA[i]['title'], JSONDATA[i]['color']]])
+    if (!load) {
+      load_ads()
     }
   }, [])
 
@@ -20,7 +37,6 @@ export default function CreateAdViewer() {
       autoplay
       autoplayDelay={3}
       autoplayLoop
-      index={4}
       showPagination
       paginationStyle={{
         display: 'flex',
